@@ -4,7 +4,8 @@ window.addEventListener("DOMContentLoaded",()=>{
 	//getting data from crud crud
 	axios.get('https://crudcrud.com/api/23b998d2db1d493c910d61be1fd896cc/appData').then((resp)=>{
 			for(let i=0;i<resp.data.length;i++){
-			show(resp.data[i]);}
+			show(resp.data[i]);
+		}
 	}).catch((err)=>console.log(err));
 })
 
@@ -21,8 +22,6 @@ my_obj.email=email;
 my_obj.phone=p;
 my_obj.dateForCall=tfc;
 my_obj.timeForCall=tf;
-//adding key
-var key=email;
 //serializing
 	// const objJSON=JSON.stringify(my_obj);
 //inserting in local storage
@@ -36,14 +35,14 @@ var key=email;
 
 	}
 	function show(obj){
-		console.log("in show");
 		let li=document.createElement('li');
+		let id=obj._id;
 		let name=obj.name;
 		let email=obj.email;
 		let phone=obj.phone;
 		let date=obj.dateForCall;
 		let time=obj.timeForCall;
-		console.log(name+' '+email+' '+phone+' '+date+' '+time);
+		li.appendChild(document.createTextNode(id));
 		li.appendChild(document.createTextNode(name+' '));
 		li.appendChild(document.createTextNode(phone+' '));
 		li.appendChild(document.createTextNode(email+' '));
@@ -79,11 +78,14 @@ var key=email;
 		function del(e){
 			e.preventDefault();
 			if(confirm('Remove this appointment?')){
+
 				let li=e.target.parentElement;
 				//remove data from list
 				list.removeChild(li);
-				//remove data from local storage
-				localStorage.removeItem(key);
+				const id=li.firstChild.data;
+				axios.delete('https://crudcrud.com/api/23b998d2db1d493c910d61be1fd896cc/appData/'+id).then((res)=>{
+					console.log('successfully deleted');
+				}).catch((err)=>console.log('error'));
 			}
 		}
 	
