@@ -8,7 +8,9 @@ window.addEventListener("DOMContentLoaded",()=>{
 		}
 	}).catch((err)=>console.log(err));
 })
-
+function handleFormSubmit(e){
+	e.preventDefault();
+}
 function onSubmit(e){
 	e.preventDefault();
 let n=document.querySelector('#name').value;
@@ -62,10 +64,11 @@ my_obj.timeForCall=tf;
 		editbtn.addEventListener('click',edit);
 		function edit(e){
 			let li=e.target.parentElement;
+			let id=li.firstChild.data;
 				list.removeChild(li);
 			let ninput=document.querySelector('#name');
 			let einput=document.querySelector('#mail');
-			let pinput=document.querySelector('#phone');
+			let pinput=document.querySelector('#phone');	
 			let tfcin=document.querySelector('#tfc');
 			let tfin=document.querySelector('#tf');
 			ninput.value=name;
@@ -73,6 +76,8 @@ my_obj.timeForCall=tf;
 			pinput.value=phone;
 			tfcin.value=date;
 			tfin.value=time;
+			axios.delete('https://crudcrud.com/api/23b998d2db1d493c910d61be1fd896cc/appData/'+id).then((res)=>{
+				}).catch((err)=>console.log('error'));
 		}
 		delbtn.addEventListener('click',del);
 		function del(e){
