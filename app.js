@@ -3,7 +3,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 
 const sequelize=require('./util/database');
-
+ 
 var cors=require('cors');
 
 const app=express();

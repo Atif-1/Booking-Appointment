@@ -9,6 +9,7 @@ exports.addUser=async (req,res,next)=>{
 	res.status(201).json({newUserDetail:data});
 	}catch(err){res.status(500).json({
 		error:err
+		
 	})}
 }
 
